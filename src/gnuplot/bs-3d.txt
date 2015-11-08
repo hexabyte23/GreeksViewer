@@ -1,0 +1,95 @@
+
+undefine $*
+
+set terminal png size 800,600 enhanced font 'Verdana,10'
+set grid
+
+
+set samples 30
+set isosample 40
+set view 50,10
+set border 4095
+
+set palette model XYZ functions gray**0.35, gray**0.5, gray**0.8
+#set palette model HSV rgbformulae 3,2,2
+set pm3d scansbackward
+set hidden3d
+set contour
+
+set xlabel "Spot" offset -3,-2
+set ylabel "Time"
+set zlabel "Value"
+#set title "Call option"
+
+set xrange [-0:100]
+set yrange [0.001:10] 
+
+
+np(x) = (1.0/sqrt(2.0*pi)*exp(-x*x/2.0))
+d1(S, K, T, r, v) = (log(S/K)+(r+v*v/2.0)*T)/(v*sqrt(T));
+d2(S, K, T, r, v) = (log(S/K)+(r-v*v/2.0)*T)/(v*sqrt(T));
+OptionCall(S, K, T, r, v) = S*norm(d1(S,K,T,r,v)) - K*exp(-r*T)*norm(d2(S,K,T,r,v))
+OptionPut(S, K, T, r, v) = K*exp(-r*T)*norm(-d2(S,K,T,r,v)) - S*norm(-d1(S,K,T,r,v))
+DeltaCall(S, K, T, r, v) = norm(d1(S,K,T,r,v))
+DeltaPut(S, K, T, r, v) = -norm(-d1(S,K,T,r,v))
+GammaCall(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
+GammaPut(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
+ThetaCall(S, K, T, r, v) = -K*exp(-r*T)*(r*norm(d2(S,K,T,r,v))+v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
+ThetaPut(S, K, T, r, v) = K*exp(-r*T)*(r*norm(-d2(S,K,T,r,v))-v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
+RhoCall(S, K, T, r, v) = T*K*exp(-r*T)*norm(d2(S,K,T,r,v))
+RhoPut(S, K, T, r, v) = -T*K*exp(-r*T)*norm(-d2(S,K,T,r,v))
+VegaCall(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
+VegaPut(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
+Forward(S, K, T, r) = S - K*exp(-r*T)
+ThetaForward(S, K, T, r) = -r*K*exp(-r*T)
+RhoForward(S, K, T, r) = T*K*exp(-r*T)
+
+K = 50
+r = 0.08
+v = 0.25
+
+#set output "option-call-greeks-3d.png"
+#set multiplot layout 6,1
+
+set output "option-call-value-3d.png"
+splot OptionCall(x, K, y, r, v) #with pm3d
+
+#set output "option-put-value-3d..png"
+#splot OptionPut(x, K, y, r, v) #with pm3d
+
+set output "option-call-delta-3d.png"
+splot DeltaCall(x, K, y, r, v)
+
+#set output "option-put-delta-3d.png"
+#splot DeltaPut(x, K, y, r, v) 
+
+set output "option-call-gamma-3d.png"
+splot GammaCall(x, K, y, r, v)
+
+#set output "option-put-gamma-3d.png"
+#splot GammaPut(x, K, y, r, v)
+
+set output "option-call-theta-3d.png"
+splot ThetaCall(x, K, y, r, v)
+
+#set output "option-put-theta-3d.png"
+#splot ThetaPut(x, K, y, r, v)
+
+set output "option-call-rho-3d.png"
+splot RhoCall(x, K, y, r, v)
+
+#set output "option-put-rho-3d.png"
+#splot RhoPut(x, K, y, r, v)
+
+set output "option-call-vega-3d.png"
+splot VegaCall(x, K, y, r, v)
+
+#set output "forward-value-3d.png"
+#splot Forward(x, K, y, r)
+
+#set output "forward-theta-3d.png"
+#splot ThetaForward(x, K, y, r)
+
+#set output "forward-rho-3d.png"
+#splot RhoForward(x, K, y, r)
+

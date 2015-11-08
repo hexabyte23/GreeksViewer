@@ -1,0 +1,79 @@
+
+undefine $*
+
+set terminal png size 800,600 enhanced font 'Verdana,10'
+set grid
+
+
+set samples 500
+set isosample 40
+set view 50,10
+set border 4095
+
+set palette model XYZ functions gray**0.35, gray**0.5, gray**0.8
+#set palette model HSV rgbformulae 3,2,2
+set pm3d scansbackward
+set hidden3d
+set contour
+
+set xlabel "Spot"
+#set title "Call option"
+
+
+np(x) = (1.0/sqrt(2.0*pi)*exp(-x*x/2.0))
+d1(S, K, T, r, v) = (log(S/K)+(r+v*v/2.0)*T)/(v*sqrt(T));
+d2(S, K, T, r, v) = (log(S/K)+(r-v*v/2.0)*T)/(v*sqrt(T));
+OptionCall(S, K, T, r, v) = S*norm(d1(S,K,T,r,v)) - K*exp(-r*T)*norm(d2(S,K,T,r,v))
+OptionPut(S, K, T, r, v) = K*exp(-r*T)*norm(-d2(S,K,T,r,v)) - S*norm(-d1(S,K,T,r,v))
+DeltaCall(S, K, T, r, v) = norm(d1(S,K,T,r,v))
+DeltaPut(S, K, T, r, v) = -norm(-d1(S,K,T,r,v))
+GammaCall(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
+GammaPut(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
+ThetaCall(S, K, T, r, v) = -K*exp(-r*T)*(r*norm(d2(S,K,T,r,v))+v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
+ThetaPut(S, K, T, r, v) = K*exp(-r*T)*(r*norm(-d2(S,K,T,r,v))-v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
+RhoCall(S, K, T, r, v) = T*K*exp(-r*T)*norm(d2(S,K,T,r,v))
+RhoPut(S, K, T, r, v) = -T*K*exp(-r*T)*norm(-d2(S,K,T,r,v))
+VegaCall(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
+VegaPut(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
+Forward(S, K, T, r) = S - K*exp(-r*T)
+ThetaForward(S, K, T, r) = -r*K*exp(-r*T)
+RhoForward(S, K, T, r) = T*K*exp(-r*T)
+
+K = 50
+r = 0.08
+v = 0.25
+
+range = 100
+
+#set output "option-call-greeks-2d.png"
+#set multiplot layout 6,1
+
+set label 1 sprintf("K = %.0f",K) tc rgb "red" at K-2,-6
+
+set ylabel "Premium"
+set output "option-call-value-2d.png"
+plot [0:range] OptionCall(x, K, 0.0001, r, v) title "at maturity" lw 3, OptionCall(x, K, 0.1, r, v) title "1 month", OptionCall(x, K, 1.0, r, v) title "1 year", OptionCall(x, K, 5.0, r, v) title "5 years"
+
+unset label 1
+
+set ylabel "Delta"
+set output "option-call-delta-2d.png"
+plot [0:range] DeltaCall(x, K, 0.0001, r, v) title "at maturity" lw 3, DeltaCall(x, K, 0.1, r, v) title "1 month", DeltaCall(x, K, 1.0, r, v) title "1 year", DeltaCall(x, K, 5.0, r, v) title "5 years"
+
+set ylabel "Gamma"
+set output "option-call-gamma-2d.png"
+plot [0:range] GammaCall(x, K, 0.0001, r, v) title "at maturity" lw 3, GammaCall(x, K, 0.1, r, v) title "1 month", GammaCall(x, K, 1.0, r, v) title "1 year", GammaCall(x, K, 5.0, r, v) title "5 years"
+
+set ylabel "Theta"
+set output "option-call-theta-2d.png"
+plot [0:range] ThetaCall(x, K, 0.0001, r, v) title "at maturity" lw 3, ThetaCall(x, K, 0.1, r, v) title "1 month", ThetaCall(x, K, 1.0, r, v) title "1 year", ThetaCall(x, K, 5.0, r, v) title "5 years"
+
+set ylabel "Rho"
+set output "option-call-rho-2d.png"
+plot [0:range] RhoCall(x, K, 0.0001, r, v) title "at maturity" lw 3, RhoCall(x, K, 0.1, r, v) title "1 month", RhoCall(x, K, 1.0, r, v) title "1 year", RhoCall(x, K, 5.0, r, v) title "5 years"
+
+set ylabel "Vega"
+set output "option-call-vega-2d.png"
+plot [0:range] VegaCall(x, K, 0.0001, r, v) title "at maturity" lw 3, VegaCall(x, K, 0.1, r, v) title "1 month", VegaCall(x, K, 1.0, r, v) title "1 year", VegaCall(x, K, 5.0, r, v) title "5 years"
+
+

@@ -1,0 +1,33 @@
+#
+# Black Scholes option
+#
+
+np(x) = (1.0/sqrt(2.0*pi)*exp(-x*x/2.0))
+d1(S, K, T, r, v) = (log(S/K)+(r+v*v/2.0)*T)/(v*sqrt(T));
+d2(S, K, T, r, v) = (log(S/K)+(r-v*v/2.0)*T)/(v*sqrt(T));
+OptionCall(S, K, T, r, v) = S*norm(d1(S,K,T,r,v)) - K*exp(-r*T)*norm(d2(S,K,T,r,v))
+OptionPut(S, K, T, r, v) = K*exp(-r*T)*norm(-d2(S,K,T,r,v)) - S*norm(-d1(S,K,T,r,v))
+
+# Greeks option
+
+DeltaCall(S, K, T, r, v) = norm(d1(S,K,T,r,v))
+DeltaPut(S, K, T, r, v) = -norm(-d1(S,K,T,r,v))
+GammaCall(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
+GammaPut(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
+ThetaCall(S, K, T, r, v) = -K*exp(-r*T)*(r*norm(d2(S,K,T,r,v))+v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
+ThetaPut(S, K, T, r, v) = K*exp(-r*T)*(r*norm(-d2(S,K,T,r,v))-v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
+RhoCall(S, K, T, r, v) = T*K*exp(-r*T)*norm(d2(S,K,T,r,v))
+RhoPut(S, K, T, r, v) = -T*K*exp(-r*T)*norm(-d2(S,K,T,r,v))
+VegaCall(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
+VegaPut(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
+
+#
+# Forward
+#
+
+Forward(S, K, T, r) = S - K*exp(-r*T)
+
+# Greeks forward
+
+ThetaForward(S, K, T, r) = -r*K*exp(-r*T)
+RhoForward(S, K, T, r) = T*K*exp(-r*T)

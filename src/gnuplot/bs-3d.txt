@@ -1,16 +1,15 @@
 
 undefine $*
 
-set terminal png size 800,600 enhanced font 'Verdana,10'
+set terminal png size 800,600 enhanced font Arial 13
 set grid
 
-set samples 30
-set isosample 40
+set isosample 30
 set view 50,10
 set border 4095
 
-set palette model XYZ functions gray**0.35, gray**0.5, gray**0.8
-#set palette model HSV rgbformulae 3,2,2
+#set palette model XYZ functions gray**0.35, gray**0.5, gray**0.8
+set palette model HSV rgbformulae 3,2,2
 set pm3d scansbackward
 set hidden3d
 set contour

@@ -24,7 +24,11 @@ load "formula.txt"
 K = 50
 r = 0.08
 q = 0.01
-v = 0.25
+v = 0.3
+T0 = 0.000001		# Time to maturity
+T1 = 1/12.0			# 1 month
+T2 = 1.0			# 1 year
+T3 = 5.0			# 5 years
 K1 = 40
 K2 = 60
 
@@ -38,73 +42,73 @@ set label 1 sprintf("K = %.0f",K) tc rgb "red" at K-2,-3
 
 set ylabel "Premium"
 set output outputPath."option-call-value-2d.png"
-plot [0:range] OptionCall(x, K, 0.0001, r, q, v) title "at maturity" lw 3, OptionCall(x, K, 0.1, r, q, v) title "1 month", OptionCall(x, K, 1.0, r, q, v) title "1 year", OptionCall(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] OptionCall(x, K, T0, r, q, v) title "at maturity" lw 3, OptionCall(x, K, T1, r, q, v) title "1 month", OptionCall(x, K, T2, r, q, v) title "1 year", OptionCall(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-put-value-2d.png"
-plot [0:range] OptionPut(x, K, 0.0001, r, q, v) title "at maturity" lw 3, OptionPut(x, K, 0.1, r, q, v) title "1 month", OptionPut(x, K, 1.0, r, q, v) title "1 year", OptionPut(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] OptionPut(x, K, T0, r, q, v) title "at maturity" lw 3, OptionPut(x, K, T1, r, q, v) title "1 month", OptionPut(x, K, T2, r, q, v) title "1 year", OptionPut(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-straddle-value-2d.png"
-plot [0:range] Straddle(x, K, 0.0001, r, q, v) title "at maturity" lw 3, Straddle(x, K, 0.1, r, q, v) title "1 month", Straddle(x, K, 1.0, r, q, v) title "1 year", Straddle(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] Straddle(x, K, T0, r, q, v) title "at maturity" lw 3, Straddle(x, K, T1, r, q, v) title "1 month", Straddle(x, K, T2, r, q, v) title "1 year", Straddle(x, K, T3, r, q, v) title "5 years"
 
 set label 1 sprintf("K1 = %.0f",K1) tc rgb "red" at K1-2,-4
 set label 2 sprintf("K2 = %.0f",K2) tc rgb "red" at K2-2,-4
 
 set output outputPath."option-strangle-value-2d.png"
-plot [0:range] Strangle(x, K1, K2, 0.0001, r, q, v) title "at maturity" lw 3, Strangle(x, K1, K2, 0.1, r, q, v) title "1 month", Strangle(x, K1, K2, 1.0, r, q, v) title "1 year", Strangle(x, K1, K2, 5.0, r, q, v) title "5 years"
+plot [0:range] Strangle(x, K1, K2, T0, r, q, v) title "at maturity" lw 3, Strangle(x, K1, K2, T1, r, q, v) title "1 month", Strangle(x, K1, K2, T2, r, q, v) title "1 year", Strangle(x, K1, K2, T3, r, q, v) title "5 years"
 
 unset label 1
 unset label 2
 
 set ylabel "Delta"
 set output outputPath."option-call-delta-2d.png"
-plot [0:range] DeltaCall(x, K, 0.0001, r, q, v) title "at maturity" lw 3, DeltaCall(x, K, 0.1, r, q, v) title "1 month", DeltaCall(x, K, 1.0, r, q, v) title "1 year", DeltaCall(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] DeltaCall(x, K, T0, r, q, v) title "at maturity" lw 3, DeltaCall(x, K, T1, r, q, v) title "1 month", DeltaCall(x, K, T2, r, q, v) title "1 year", DeltaCall(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-put-delta-2d.png"
-plot [0:range] DeltaPut(x, K, 0.0001, r, q, v) title "at maturity" lw 3, DeltaPut(x, K, 0.1, r, q, v) title "1 month", DeltaPut(x, K, 1.0, r, q, v) title "1 year", DeltaPut(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] DeltaPut(x, K, T0, r, q, v) title "at maturity" lw 3, DeltaPut(x, K, T1, r, q, v) title "1 month", DeltaPut(x, K, T2, r, q, v) title "1 year", DeltaPut(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-straddle-delta-2d.png"
-plot [0:range] DeltaStraddle(x, K, 0.0001, r, q, v) title "at maturity" lw 3, DeltaStraddle(x, K, 0.1, r, q, v) title "1 month", DeltaStraddle(x, K, 1.0, r, q, v) title "1 year", DeltaStraddle(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] DeltaStraddle(x, K, T0, r, q, v) title "at maturity" lw 3, DeltaStraddle(x, K, T1, r, q, v) title "1 month", DeltaStraddle(x, K, T2, r, q, v) title "1 year", DeltaStraddle(x, K, T3, r, q, v) title "5 years"
 
 set ylabel "Gamma"
 set output outputPath."option-call-gamma-2d.png"
-plot [0:range] GammaCall(x, K, 0.0001, r, q, v) title "at maturity" lw 3, GammaCall(x, K, 0.1, r, q, v) title "1 month", GammaCall(x, K, 1.0, r, q, v) title "1 year", GammaCall(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] GammaCall(x, K, T0, r, q, v) title "at maturity" lw 3, GammaCall(x, K, T1, r, q, v) title "1 month", GammaCall(x, K, T2, r, q, v) title "1 year", GammaCall(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-put-gamma-2d.png"
-plot [0:range] GammaPut(x, K, 0.0001, r, q, v) title "at maturity" lw 3, GammaPut(x, K, 0.1, r, q, v) title "1 month", GammaPut(x, K, 1.0, r, q, v) title "1 year", GammaPut(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] GammaPut(x, K, T0, r, q, v) title "at maturity" lw 3, GammaPut(x, K, T1, r, q, v) title "1 month", GammaPut(x, K, T2, r, q, v) title "1 year", GammaPut(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-straddle-gamma-2d.png"
-plot [0:range] GammaStraddle(x, K, 0.0001, r, q, v) title "at maturity" lw 3, GammaStraddle(x, K, 0.1, r, q, v) title "1 month", GammaStraddle(x, K, 1.0, r, q, v) title "1 year", GammaStraddle(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] GammaStraddle(x, K, T0, r, q, v) title "at maturity" lw 3, GammaStraddle(x, K, T1, r, q, v) title "1 month", GammaStraddle(x, K, T2, r, q, v) title "1 year", GammaStraddle(x, K, T3, r, q, v) title "5 years"
 
 set ylabel "Theta"
 set output outputPath."option-call-theta-2d.png"
-plot [0:range] ThetaCall(x, K, 0.0001, r, q, v) title "at maturity" lw 3, ThetaCall(x, K, 0.1, r, q, v) title "1 month", ThetaCall(x, K, 1.0, r, q, v) title "1 year", ThetaCall(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] ThetaCall(x, K, T0, r, q, v) title "at maturity" lw 3, ThetaCall(x, K, T1, r, q, v) title "1 month", ThetaCall(x, K, T2, r, q, v) title "1 year", ThetaCall(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-put-theta-2d.png"
-plot [0:range] ThetaPut(x, K, 0.0001, r, q, v) title "at maturity" lw 3, ThetaPut(x, K, 0.1, r, q, v) title "1 month", ThetaPut(x, K, 1.0, r, q, v) title "1 year", ThetaPut(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] ThetaPut(x, K, T0, r, q, v) title "at maturity" lw 3, ThetaPut(x, K, T1, r, q, v) title "1 month", ThetaPut(x, K, T2, r, q, v) title "1 year", ThetaPut(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-straddle-theta-2d.png"
-plot [0:range] ThetaStraddle(x, K, 0.0001, r, q, v) title "at maturity" lw 3, ThetaStraddle(x, K, 0.1, r, q, v) title "1 month", ThetaStraddle(x, K, 1.0, r, q, v) title "1 year", ThetaStraddle(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] ThetaStraddle(x, K, T0, r, q, v) title "at maturity" lw 3, ThetaStraddle(x, K, T1, r, q, v) title "1 month", ThetaStraddle(x, K, T2, r, q, v) title "1 year", ThetaStraddle(x, K, T3, r, q, v) title "5 years"
 
 set ylabel "Rho"
 set output outputPath."option-call-rho-2d.png"
-plot [0:range] RhoCall(x, K, 0.0001, r, q, v) title "at maturity" lw 3, RhoCall(x, K, 0.1, r, q, v) title "1 month", RhoCall(x, K, 1.0, r, q, v) title "1 year", RhoCall(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] RhoCall(x, K, T0, r, q, v) title "at maturity" lw 3, RhoCall(x, K, T1, r, q, v) title "1 month", RhoCall(x, K, T2, r, q, v) title "1 year", RhoCall(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-put-rho-2d.png"
-plot [0:range] RhoPut(x, K, 0.0001, r, q, v) title "at maturity" lw 3, RhoPut(x, K, 0.1, r, q, v) title "1 month", RhoPut(x, K, 1.0, r, q, v) title "1 year", RhoPut(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] RhoPut(x, K, T0, r, q, v) title "at maturity" lw 3, RhoPut(x, K, T1, r, q, v) title "1 month", RhoPut(x, K, T2, r, q, v) title "1 year", RhoPut(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-Straddle-rho-2d.png"
-plot [0:range] RhoStraddle(x, K, 0.0001, r, q, v) title "at maturity" lw 3, RhoStraddle(x, K, 0.1, r, q, v) title "1 month", RhoStraddle(x, K, 1.0, r, q, v) title "1 year", RhoStraddle(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] RhoStraddle(x, K, T0, r, q, v) title "at maturity" lw 3, RhoStraddle(x, K, T1, r, q, v) title "1 month", RhoStraddle(x, K, T2, r, q, v) title "1 year", RhoStraddle(x, K, T3, r, q, v) title "5 years"
 
 set ylabel "Vega"
 set output outputPath."option-call-vega-2d.png"
-plot [0:range] VegaCall(x, K, 0.0001, r, q, v) title "at maturity" lw 3, VegaCall(x, K, 0.1, r, q, v) title "1 month", VegaCall(x, K, 1.0, r, q, v) title "1 year", VegaCall(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] VegaCall(x, K, T0, r, q, v) title "at maturity" lw 3, VegaCall(x, K, T1, r, q, v) title "1 month", VegaCall(x, K, T2, r, q, v) title "1 year", VegaCall(x, K, T3, r, q, v) title "5 years"
 
 set output outputPath."option-put-vega-2d.png"
-plot [0:range] VegaPut(x, K, 0.0001, r, q, v) title "at maturity" lw 3, VegaPut(x, K, 0.1, r, q, v) title "1 month", VegaPut(x, K, 1.0, r, q, v) title "1 year", VegaPut(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] VegaPut(x, K, T0, r, q, v) title "at maturity" lw 3, VegaPut(x, K, T1, r, q, v) title "1 month", VegaPut(x, K, T2, r, q, v) title "1 year", VegaPut(x, K, T3, r, q, v) title "5 years"
 
 
 set output outputPath."option-straddle-vega-2d.png"
-plot [0:range] VegaStraddle(x, K, 0.0001, r, q, v) title "at maturity" lw 3, VegaStraddle(x, K, 0.1, r, q, v) title "1 month", VegaStraddle(x, K, 1.0, r, q, v) title "1 year", VegaStraddle(x, K, 5.0, r, q, v) title "5 years"
+plot [0:range] VegaStraddle(x, K, T0, r, q, v) title "at maturity" lw 3, VegaStraddle(x, K, T1, r, q, v) title "1 month", VegaStraddle(x, K, T2, r, q, v) title "1 year", VegaStraddle(x, K, T3, r, q, v) title "5 years"
 
 
 

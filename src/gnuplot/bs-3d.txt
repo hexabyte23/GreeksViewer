@@ -22,14 +22,14 @@ set ylabel "Time"
 set zlabel "Value"
 
 set xrange [-0:100]
-set yrange [0.001:10] 
+set yrange [0.001:5] 
 
 load "formula.txt"
 
 K = 50
 r = 0.08
 q = 0.01
-v = 0.25
+v = 0.3
 
 #set title "Call option"
 #set output outputPath."option-call-greeks-3d.png"

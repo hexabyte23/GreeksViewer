@@ -1,5 +1,5 @@
 #
-# Black Scholes option
+# Black Scholes option on stock without dividend
 #
 
 np(x) = (1.0/sqrt(2.0*pi)*exp(-x*x/2.0))

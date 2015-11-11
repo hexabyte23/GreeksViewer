@@ -15,6 +15,8 @@ set pm3d scansbackward
 set hidden3d
 set contour
 
+outputPath = "./output/"
+
 set xlabel "Spot" offset -3,-2
 set ylabel "Time"
 set zlabel "Value"
@@ -29,69 +31,69 @@ r = 0.08
 v = 0.25
 
 #set title "Call option"
-#set output "option-call-greeks-3d.png"
+#set output outputPath."option-call-greeks-3d.png"
 #set multiplot layout 6,1
 
-set output "option-call-value-3d.png"
+set output outputPath."option-call-value-3d.png"
 splot OptionCall(x, K, y, r, v) #with pm3d
 
-set output "option-put-value-3d.png"
+set output outputPath."option-put-value-3d.png"
 splot OptionPut(x, K, y, r, v) #with pm3d
 
-set output "option-straddle-value-3d.png"
+set output outputPath."option-straddle-value-3d.png"
 splot Straddle(x, K, y, r, v) #with pm3d
 
-set output "option-call-delta-3d.png"
+set output outputPath."option-call-delta-3d.png"
 splot DeltaCall(x, K, y, r, v)
 
-set output "option-put-delta-3d.png"
+set output outputPath."option-put-delta-3d.png"
 splot DeltaPut(x, K, y, r, v) 
 
-set output "option-straddle-delta-3d.png"
+set output outputPath."option-straddle-delta-3d.png"
 splot DeltaStraddle(x, K, y, r, v) 
 
-set output "option-call-gamma-3d.png"
+set output outputPath."option-call-gamma-3d.png"
 splot GammaCall(x, K, y, r, v)
 
-set output "option-put-gamma-3d.png"
+set output outputPath."option-put-gamma-3d.png"
 splot GammaPut(x, K, y, r, v)
 
-set output "option-straddle-gamma-3d.png"
+set output outputPath."option-straddle-gamma-3d.png"
 splot GammaStraddle(x, K, y, r, v)
 
-set output "option-call-theta-3d.png"
+set output outputPath."option-call-theta-3d.png"
 splot ThetaCall(x, K, y, r, v)
 
-set output "option-put-theta-3d.png"
+set output outputPath."option-put-theta-3d.png"
 splot ThetaPut(x, K, y, r, v)
 
-set output "option-straddle-theta-3d.png"
+set output outputPath."option-straddle-theta-3d.png"
 splot ThetaStraddle(x, K, y, r, v)
 
-set output "option-call-rho-3d.png"
+set output outputPath."option-call-rho-3d.png"
 splot RhoCall(x, K, y, r, v)
 
-set output "option-put-rho-3d.png"
+set output outputPath."option-put-rho-3d.png"
 splot RhoPut(x, K, y, r, v)
 
-set output "option-straddle-rho-3d.png"
+set output outputPath."option-straddle-rho-3d.png"
 splot RhoStraddle(x, K, y, r, v)
 
-set output "option-call-vega-3d.png"
+set output outputPath."option-call-vega-3d.png"
 splot VegaCall(x, K, y, r, v)
 
-set output "option-put-vega-3d.png"
+set output outputPath."option-put-vega-3d.png"
 splot VegaPut(x, K, y, r, v)
 
-set output "option-straddle-vega-3d.png"
+set output outputPath."option-straddle-vega-3d.png"
 splot VegaStraddle(x, K, y, r, v)
 
-set output "forward-value-3d.png"
+set output outputPath."forward-value-3d.png"
 splot Forward(x, K, y, r)
 
-set output "forward-theta-3d.png"
+set output outputPath."forward-theta-3d.png"
 splot ThetaForward(x, K, y, r)
 
-set output "forward-rho-3d.png"
+set output outputPath."forward-rho-3d.png"
 splot RhoForward(x, K, y, r)
 

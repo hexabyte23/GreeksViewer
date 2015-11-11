@@ -28,6 +28,7 @@ load "formula.txt"
 
 K = 50
 r = 0.08
+q = 0.01
 v = 0.25
 
 #set title "Call option"
@@ -35,58 +36,58 @@ v = 0.25
 #set multiplot layout 6,1
 
 set output outputPath."option-call-value-3d.png"
-splot OptionCall(x, K, y, r, v) #with pm3d
+splot OptionCall(x, K, y, r, q, v) #with pm3d
 
 set output outputPath."option-put-value-3d.png"
-splot OptionPut(x, K, y, r, v) #with pm3d
+splot OptionPut(x, K, y, r, q, v) #with pm3d
 
 set output outputPath."option-straddle-value-3d.png"
-splot Straddle(x, K, y, r, v) #with pm3d
+splot Straddle(x, K, y, r, q, v) #with pm3d
 
 set output outputPath."option-call-delta-3d.png"
-splot DeltaCall(x, K, y, r, v)
+splot DeltaCall(x, K, y, r, q, v)
 
 set output outputPath."option-put-delta-3d.png"
-splot DeltaPut(x, K, y, r, v) 
+splot DeltaPut(x, K, y, r, q, v) 
 
 set output outputPath."option-straddle-delta-3d.png"
-splot DeltaStraddle(x, K, y, r, v) 
+splot DeltaStraddle(x, K, y, r, q, v) 
 
 set output outputPath."option-call-gamma-3d.png"
-splot GammaCall(x, K, y, r, v)
+splot GammaCall(x, K, y, r, q, v)
 
 set output outputPath."option-put-gamma-3d.png"
-splot GammaPut(x, K, y, r, v)
+splot GammaPut(x, K, y, r, q, v)
 
 set output outputPath."option-straddle-gamma-3d.png"
-splot GammaStraddle(x, K, y, r, v)
+splot GammaStraddle(x, K, y, r, q, v)
 
 set output outputPath."option-call-theta-3d.png"
-splot ThetaCall(x, K, y, r, v)
+splot ThetaCall(x, K, y, r, q, v)
 
 set output outputPath."option-put-theta-3d.png"
-splot ThetaPut(x, K, y, r, v)
+splot ThetaPut(x, K, y, r, q, v)
 
 set output outputPath."option-straddle-theta-3d.png"
-splot ThetaStraddle(x, K, y, r, v)
+splot ThetaStraddle(x, K, y, r, q, v)
 
 set output outputPath."option-call-rho-3d.png"
-splot RhoCall(x, K, y, r, v)
+splot RhoCall(x, K, y, r, q, v)
 
 set output outputPath."option-put-rho-3d.png"
-splot RhoPut(x, K, y, r, v)
+splot RhoPut(x, K, y, r, q, v)
 
 set output outputPath."option-straddle-rho-3d.png"
-splot RhoStraddle(x, K, y, r, v)
+splot RhoStraddle(x, K, y, r, q, v)
 
 set output outputPath."option-call-vega-3d.png"
-splot VegaCall(x, K, y, r, v)
+splot VegaCall(x, K, y, r, q, v)
 
 set output outputPath."option-put-vega-3d.png"
-splot VegaPut(x, K, y, r, v)
+splot VegaPut(x, K, y, r, q, v)
 
 set output outputPath."option-straddle-vega-3d.png"
-splot VegaStraddle(x, K, y, r, v)
+splot VegaStraddle(x, K, y, r, q, v)
 
 set output outputPath."forward-value-3d.png"
 splot Forward(x, K, y, r)

@@ -1,25 +1,25 @@
 #
-# Black Scholes option on stock without dividend
+# Black Scholes option on stock with dividend
 #
 
 np(x) = (1.0/sqrt(2.0*pi)*exp(-x*x/2.0))
-d1(S, K, T, r, v) = (log(S/K)+(r+v*v/2.0)*T)/(v*sqrt(T));
-d2(S, K, T, r, v) = (log(S/K)+(r-v*v/2.0)*T)/(v*sqrt(T));
-OptionCall(S, K, T, r, v) = S*norm(d1(S,K,T,r,v)) - K*exp(-r*T)*norm(d2(S,K,T,r,v))
-OptionPut(S, K, T, r, v) = K*exp(-r*T)*norm(-d2(S,K,T,r,v)) - S*norm(-d1(S,K,T,r,v))
+d1(S, K, T, r, q, v) = (log(S/K)+(r-q+v*v/2.0)*T)/(v*sqrt(T));
+d2(S, K, T, r, q, v) = (log(S/K)+(r-q-v*v/2.0)*T)/(v*sqrt(T));
+OptionCall(S, K, T, r, q, v) = S*exp(-q*T)*norm(d1(S,K,T,r,q,v)) - K*exp(-r*T)*norm(d2(S,K,T,r,q,v))
+OptionPut(S, K, T, r, q, v) = K*exp(-r*T)*norm(-d2(S,K,T,r,q,v)) - S*exp(-q*T)*norm(-d1(S,K,T,r,q,v))
 
 # Option greeks
 
-DeltaCall(S, K, T, r, v) = norm(d1(S,K,T,r,v))
-DeltaPut(S, K, T, r, v) = -norm(-d1(S,K,T,r,v))
-GammaCall(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
-GammaPut(S, K, T, r, v) = K*exp(-r*T)*np(d2(S,K,T,r,v))/S*S*v*sqrt(T)
-ThetaCall(S, K, T, r, v) = -K*exp(-r*T)*(r*norm(d2(S,K,T,r,v))+v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
-ThetaPut(S, K, T, r, v) = K*exp(-r*T)*(r*norm(-d2(S,K,T,r,v))-v*np(d2(S,K,T,r,v))/2.0*sqrt(T))
-RhoCall(S, K, T, r, v) = T*K*exp(-r*T)*norm(d2(S,K,T,r,v))
-RhoPut(S, K, T, r, v) = -T*K*exp(-r*T)*norm(-d2(S,K,T,r,v))
-VegaCall(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
-VegaPut(S, K, T, r, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,v))
+DeltaCall(S, K, T, r, q, v) = norm(d1(S,K,T,r,q,v))
+DeltaPut(S, K, T, r, q, v) = -norm(-d1(S,K,T,r,q,v))
+GammaCall(S, K, T, r, q, v) = K*exp(-r*T)*np(d2(S,K,T,r,q,v))/S*S*v*sqrt(T)
+GammaPut(S, K, T, r, q, v) = K*exp(-r*T)*np(d2(S,K,T,r,q,v))/S*S*v*sqrt(T)
+ThetaCall(S, K, T, r, q, v) = -K*exp(-r*T)*(r*norm(d2(S,K,T,r,q,v))+v*np(d2(S,K,T,r,q,v))/2.0*sqrt(T))
+ThetaPut(S, K, T, r, q, v) = K*exp(-r*T)*(r*norm(-d2(S,K,T,r,q,v))-v*np(d2(S,K,T,r,q,v))/2.0*sqrt(T))
+RhoCall(S, K, T, r, q, v) = T*K*exp(-r*T)*norm(d2(S,K,T,r,q,v))
+RhoPut(S, K, T, r, q, v) = -T*K*exp(-r*T)*norm(-d2(S,K,T,r,q,v))
+VegaCall(S, K, T, r, q, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,q,v))
+VegaPut(S, K, T, r, q, v) = sqrt(T)*K*exp(-r*T)*np(d2(S,K,T,r,q,v))
 
 #
 # Forward
@@ -36,19 +36,19 @@ RhoForward(S, K, T, r) = T*K*exp(-r*T)
 # Straddle
 #
 
-Straddle(S, K, T, r, v) = OptionCall(S, K, T, r, v) + OptionPut(S, K, T, r, v)
+Straddle(S, K, T, r, q, v) = OptionCall(S, K, T, r, q, v) + OptionPut(S, K, T, r, q, v)
 
 # Straddle greeks
 
-DeltaStraddle(S, K, T, r, v) = DeltaCall(S, K, T, r, v) + DeltaPut(S, K, T, r, v)
-GammaStraddle(S, K, T, r, v) = GammaCall(S, K, T, r, v) + GammaPut(S, K, T, r, v)
-ThetaStraddle(S, K, T, r, v) = ThetaCall(S, K, T, r, v) + ThetaPut(S, K, T, r, v)
-RhoStraddle(S, K, T, r, v) = RhoCall(S, K, T, r, v) + RhoPut(S, K, T, r, v)
-VegaStraddle(S, K, T, r, v) = VegaCall(S, K, T, r, v) + VegaPut(S, K, T, r, v)
+DeltaStraddle(S, K, T, r, q, v) = DeltaCall(S, K, T, r, q, v) + DeltaPut(S, K, T, r, q, v)
+GammaStraddle(S, K, T, r, q, v) = GammaCall(S, K, T, r, q, v) + GammaPut(S, K, T, r, q, v)
+ThetaStraddle(S, K, T, r, q, v) = ThetaCall(S, K, T, r, q, v) + ThetaPut(S, K, T, r, q, v)
+RhoStraddle(S, K, T, r, q, v) = RhoCall(S, K, T, r, q, v) + RhoPut(S, K, T, r, q, v)
+VegaStraddle(S, K, T, r, q, v) = VegaCall(S, K, T, r, q, v) + VegaPut(S, K, T, r, q, v)
 
 #
 # Strangle
 #
 
-Strangle(S, K1, K2, T, r, v) = OptionCall(S, K2, T, r, v) + OptionPut(S, K1, T, r, v)
+Strangle(S, K1, K2, T, r, q, v) = OptionCall(S, K2, T, r, q, v) + OptionPut(S, K1, T, r, q, v)
 

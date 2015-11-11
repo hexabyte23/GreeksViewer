@@ -1,13 +1,32 @@
 # GreeksViewer
 Tool for pricing financial derivative products.
 
-## Gnuplot
+## Derivative product
 
-Scripts that generate option Call/Put 2D and 3D graphs for:
-- Premium
-- Delta
-- Gamma
-- Theta
-- Rho
-- Vega
+- Option on stock without dividend
+	- Premium	(3d/3d)
+	- Delta		(3d/3d)
+	- Gamma		(3d/3d)
+	- Theta		(3d/3d)
+	- Rho		(3d/3d)
+	- Vega		(3d/3d)
+- Forward
+	- Theta		(3d/3d)
+	- Rho	 	(3d/3d)
+- Straddle
+	- Premium	(3d/3d)
+	- Delta		(3d/3d)
+	- Gamma		(3d/3d)
+	- Theta		(3d/3d)
+	- Rho		(3d/3d)
+	- Vega		(3d/3d)
+- Strangle
+	- Premium	(3d/3d)
+	- Delta		(3d/3d)
+	- Gamma		(3d/3d)
+	- Theta		(3d/3d)
+	- Rho		(3d/3d)
+	- Vega		(3d/3d)
+
+
 

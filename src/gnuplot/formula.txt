@@ -52,3 +52,13 @@ VegaStraddle(S, K, T, r, q, v) = VegaCall(S, K, T, r, q, v) + VegaPut(S, K, T, r
 
 Strangle(S, K1, K2, T, r, q, v) = OptionCall(S, K2, T, r, q, v) + OptionPut(S, K1, T, r, q, v)
 
+# Strangle greeks
+
+DeltaStrangle(S, K1, K2, T, r, q, v) = DeltaCall(S, K2, T, r, q, v) + DeltaPut(S, K1, T, r, q, v)
+GammaStrangle(S, K1, K2, T, r, q, v) = GammaCall(S, K2, T, r, q, v) + GammaPut(S, K1, T, r, q, v)
+ThetaStrangle(S, K1, K2, T, r, q, v) = ThetaCall(S, K2, T, r, q, v) + ThetaPut(S, K1, T, r, q, v)
+RhoStrangle(S, K1, K2, T, r, q, v) = RhoCall(S, K2, T, r, q, v) + RhoPut(S, K1, T, r, q, v)
+VegaStrangle(S, K1, K2, T, r, q, v) = VegaCall(S, K2, T, r, q, v) + VegaPut(S, K1, T, r, q, v)
+
+
+

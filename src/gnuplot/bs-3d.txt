@@ -1,34 +1,33 @@
 
 undefine $*
 
-set terminal png size 800,600 enhanced font Arial 13
+set terminal png size 1200,1000 enhanced font Arial 13
 set grid
 
-set isosample 30
-set view 50,10
+set isosample 60
+set view 50,50
 set border 4095
 
-#set palette model XYZ functions gray**0.35, gray**0.5, gray**0.8
-set palette model HSV rgbformulae 3,2,2
-set pm3d scansbackward
 set hidden3d
 set contour
 
 outputPath = "./output/"
 
-set xlabel "Spot" offset -3,-2
-set ylabel "Time"
-set zlabel "Value"
+set xlabel "Spot" font "Arial, 17" offset -3,-2
+set ylabel "Time" font "Arial, 17"
+set zlabel "Value" font "Arial, 17"
 
 set xrange [-0:100]
-set yrange [0.001:5] 
+set yrange [0.0001:5] 
 
 load "formula.txt"
 
 K = 50
 r = 0.08
 q = 0.01
-v = 0.3
+v = 0.2
+K1 = 30
+K2 = 70
 
 #set title "Call option"
 #set output outputPath."option-call-greeks-3d.png"
@@ -43,6 +42,9 @@ splot OptionPut(x, K, y, r, q, v) #with pm3d
 set output outputPath."option-straddle-value-3d.png"
 splot Straddle(x, K, y, r, q, v) #with pm3d
 
+set output outputPath."option-strangle-value-3d.png"
+splot Strangle(x, K1, K2, y, r, q, v) #with pm3d
+
 set output outputPath."option-call-delta-3d.png"
 splot DeltaCall(x, K, y, r, q, v)
 
@@ -51,6 +53,9 @@ splot DeltaPut(x, K, y, r, q, v)
 
 set output outputPath."option-straddle-delta-3d.png"
 splot DeltaStraddle(x, K, y, r, q, v) 
+
+set output outputPath."option-strangle-delta-3d.png"
+splot DeltaStrangle(x, K1, K2, y, r, q, v) 
 
 set output outputPath."option-call-gamma-3d.png"
 splot GammaCall(x, K, y, r, q, v)
@@ -61,6 +66,9 @@ splot GammaPut(x, K, y, r, q, v)
 set output outputPath."option-straddle-gamma-3d.png"
 splot GammaStraddle(x, K, y, r, q, v)
 
+set output outputPath."option-strangle-gamma-3d.png"
+splot GammaStrangle(x, K1, K2, y, r, q, v)
+
 set output outputPath."option-call-theta-3d.png"
 splot ThetaCall(x, K, y, r, q, v)
 
@@ -69,6 +77,9 @@ splot ThetaPut(x, K, y, r, q, v)
 
 set output outputPath."option-straddle-theta-3d.png"
 splot ThetaStraddle(x, K, y, r, q, v)
+
+set output outputPath."option-strangle-theta-3d.png"
+splot ThetaStrangle(x, K1 ,K2, y, r, q, v)
 
 set output outputPath."option-call-rho-3d.png"
 splot RhoCall(x, K, y, r, q, v)
@@ -79,6 +90,9 @@ splot RhoPut(x, K, y, r, q, v)
 set output outputPath."option-straddle-rho-3d.png"
 splot RhoStraddle(x, K, y, r, q, v)
 
+set output outputPath."option-strangle-rho-3d.png"
+splot RhoStrangle(x, K1, K2, y, r, q, v)
+
 set output outputPath."option-call-vega-3d.png"
 splot VegaCall(x, K, y, r, q, v)
 
@@ -87,6 +101,9 @@ splot VegaPut(x, K, y, r, q, v)
 
 set output outputPath."option-straddle-vega-3d.png"
 splot VegaStraddle(x, K, y, r, q, v)
+
+set output outputPath."option-strangle-vega-3d.png"
+splot VegaStrangle(x, K1, K2, y, r, q, v)
 
 set output outputPath."forward-value-3d.png"
 splot Forward(x, K, y, r)

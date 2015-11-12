@@ -9,6 +9,7 @@ set view 50,50
 set border 4095
 
 set hidden3d
+set cntrparam levels 8
 set contour
 
 outputPath = "./output/"
@@ -18,99 +19,103 @@ set ylabel "Time" font "Arial, 17"
 set zlabel "Value" font "Arial, 17"
 
 set xrange [-0:100]
-set yrange [0.0001:5] 
+set yrange [0.0001:5]
 
 load "formula.txt"
 
 K = 50
 r = 0.08
-q = 0.01
+q = 0.02
 v = 0.2
 K1 = 30
 K2 = 70
 
-#set title "Call option"
 #set output outputPath."option-call-greeks-3d.png"
 #set multiplot layout 6,1
 
+set title sprintf("Call K=%d r=%.0f%% q=%.0f%% Vol=%.0f%%",K,r*100,q*100,v*100) font "Arial, 18"
 set output outputPath."option-call-value-3d.png"
-splot OptionCall(x, K, y, r, q, v) #with pm3d
-
-set output outputPath."option-put-value-3d.png"
-splot OptionPut(x, K, y, r, q, v) #with pm3d
-
-set output outputPath."option-straddle-value-3d.png"
-splot Straddle(x, K, y, r, q, v) #with pm3d
-
-set output outputPath."option-strangle-value-3d.png"
-splot Strangle(x, K1, K2, y, r, q, v) #with pm3d
+splot OptionCall(x, K, y, r, q, v) title "value"
 
 set output outputPath."option-call-delta-3d.png"
-splot DeltaCall(x, K, y, r, q, v)
-
-set output outputPath."option-put-delta-3d.png"
-splot DeltaPut(x, K, y, r, q, v) 
-
-set output outputPath."option-straddle-delta-3d.png"
-splot DeltaStraddle(x, K, y, r, q, v) 
-
-set output outputPath."option-strangle-delta-3d.png"
-splot DeltaStrangle(x, K1, K2, y, r, q, v) 
+splot DeltaCall(x, K, y, r, q, v) title "value"
 
 set output outputPath."option-call-gamma-3d.png"
-splot GammaCall(x, K, y, r, q, v)
-
-set output outputPath."option-put-gamma-3d.png"
-splot GammaPut(x, K, y, r, q, v)
-
-set output outputPath."option-straddle-gamma-3d.png"
-splot GammaStraddle(x, K, y, r, q, v)
-
-set output outputPath."option-strangle-gamma-3d.png"
-splot GammaStrangle(x, K1, K2, y, r, q, v)
+splot GammaCall(x, K, y, r, q, v) title "value"
 
 set output outputPath."option-call-theta-3d.png"
-splot ThetaCall(x, K, y, r, q, v)
-
-set output outputPath."option-put-theta-3d.png"
-splot ThetaPut(x, K, y, r, q, v)
-
-set output outputPath."option-straddle-theta-3d.png"
-splot ThetaStraddle(x, K, y, r, q, v)
-
-set output outputPath."option-strangle-theta-3d.png"
-splot ThetaStrangle(x, K1 ,K2, y, r, q, v)
+splot ThetaCall(x, K, y, r, q, v) title "value"
 
 set output outputPath."option-call-rho-3d.png"
-splot RhoCall(x, K, y, r, q, v)
-
-set output outputPath."option-put-rho-3d.png"
-splot RhoPut(x, K, y, r, q, v)
-
-set output outputPath."option-straddle-rho-3d.png"
-splot RhoStraddle(x, K, y, r, q, v)
-
-set output outputPath."option-strangle-rho-3d.png"
-splot RhoStrangle(x, K1, K2, y, r, q, v)
+splot RhoCall(x, K, y, r, q, v) title "value"
 
 set output outputPath."option-call-vega-3d.png"
-splot VegaCall(x, K, y, r, q, v)
+splot VegaCall(x, K, y, r, q, v) title "value"
+
+set title sprintf("Put K=%d r=%.0f%% q=%.0f%% Vol=%.0f%%",K,r*100,q*100,v*100)
+set output outputPath."option-put-value-3d.png"
+splot OptionPut(x, K, y, r, q, v)  title "value"
+
+set output outputPath."option-put-delta-3d.png"
+splot DeltaPut(x, K, y, r, q, v) title "value"
+
+set output outputPath."option-put-gamma-3d.png"
+splot GammaPut(x, K, y, r, q, v) title "value"
+
+set output outputPath."option-put-theta-3d.png"
+splot ThetaPut(x, K, y, r, q, v) title "value"
+
+set output outputPath."option-put-rho-3d.png"
+splot RhoPut(x, K, y, r, q, v) title "value"
 
 set output outputPath."option-put-vega-3d.png"
-splot VegaPut(x, K, y, r, q, v)
+splot VegaPut(x, K, y, r, q, v) title "value"
+
+set title sprintf("Straddle K=%d r=%.0f%% q=%.0f%% Vol=%.0f",K,r*100,q*100,v*100)
+set output outputPath."option-straddle-value-3d.png"
+splot Straddle(x, K, y, r, q, v) title "value"
+
+set output outputPath."option-straddle-delta-3d.png"
+splot DeltaStraddle(x, K, y, r, q, v) title "value"
+
+set output outputPath."option-straddle-gamma-3d.png"
+splot GammaStraddle(x, K, y, r, q, v) title "value"
+
+set output outputPath."option-straddle-theta-3d.png"
+splot ThetaStraddle(x, K, y, r, q, v) title "value"
+
+set output outputPath."option-straddle-rho-3d.png"
+splot RhoStraddle(x, K, y, r, q, v) title "value"
 
 set output outputPath."option-straddle-vega-3d.png"
-splot VegaStraddle(x, K, y, r, q, v)
+splot VegaStraddle(x, K, y, r, q, v) title "value"
+
+set title sprintf("Strangle K1=%d K2=%d r=%.0f%% q=%.0f%% Vol=%.0f%%",K1,K2,r*100,q*100,v*100)
+set output outputPath."option-strangle-value-3d.png"
+splot Strangle(x, K1, K2, y, r, q, v) title "value"
+
+set output outputPath."option-strangle-delta-3d.png"
+splot DeltaStrangle(x, K1, K2, y, r, q, v) title "value"
+
+set output outputPath."option-strangle-gamma-3d.png"
+splot GammaStrangle(x, K1, K2, y, r, q, v) title "value"
+
+set output outputPath."option-strangle-theta-3d.png"
+splot ThetaStrangle(x, K1 ,K2, y, r, q, v) title "value"
+
+set output outputPath."option-strangle-rho-3d.png"
+splot RhoStrangle(x, K1, K2, y, r, q, v) title "value"
 
 set output outputPath."option-strangle-vega-3d.png"
-splot VegaStrangle(x, K1, K2, y, r, q, v)
+splot VegaStrangle(x, K1, K2, y, r, q, v) title "value"
 
+set title sprintf("Forward K=%d r=%.1f%%",K,r*100)
 set output outputPath."forward-value-3d.png"
-splot Forward(x, K, y, r)
+splot Forward(x, K, y, r) title "value"
 
 set output outputPath."forward-theta-3d.png"
-splot ThetaForward(x, K, y, r)
+splot ThetaForward(x, K, y, r) title "value"
 
 set output outputPath."forward-rho-3d.png"
-splot RhoForward(x, K, y, r)
+splot RhoForward(x, K, y, r) title "value"
 

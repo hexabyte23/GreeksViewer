@@ -35,7 +35,7 @@ Download last version of gnuplot at http://www.gnuplot.info
 
 Open a terminal session
 
-cd src/gnuplot 
+$ cd src/gnuplot 
 
 gnuplot bs-2d.txt
 or

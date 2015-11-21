@@ -1,5 +1,5 @@
 # GreeksViewer
-Tool for pricing financial derivative products unsing Black Scholes formulas.
+Tool for pricing financial derivative products using Black Scholes formulas.
 
 ## Derivative products priced:
 
